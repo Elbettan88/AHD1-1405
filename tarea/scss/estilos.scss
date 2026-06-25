@@ -1,3 +1,315 @@
-body {
-    background-color: lightblue;
+// ==========================================
+// 1. VARIABLES (SassScript & Directivas)
+// ==========================================
+$primary-color: #16a34a;   // Verde Fresh / Market
+$secondary-color: #15803d; // Verde Oscuro
+$accent-color: #ea580c;    // Naranja comercial
+$background-dark: #1f2937;
+$text-light: #f9fafb;
+$text-dark: #374151;
+$border-radius: 12px;
+$padding-base: 15px;
+
+// Uso de SassScript (Operadores matemáticos para escalar layouts)
+$container-width: 650px + 450px; 
+$card-padding: $padding-base * 1.3;
+
+// ==========================================
+// 2. MIXINS OPTIMIZADOS (Media Queries y Flex/Grid)
+// ==========================================
+// Mixin para automatizar el diseño responsivo (Media Queries)
+@mixin responder-en($pantalla) {
+    @if $pantalla == movil {
+        @media (max-width: 768px) { @content; }
+    }
+    @if $pantalla == escritorio {
+        @media (min-width: 769px) { @content; }
+    }
 }
+
+// Mixin para centrar elementos flex rápidamente
+@mixin flex-centro {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+// ==========================================
+// 3. ESTILOS BASE Y ANIDAMIENTO (Nesting)
+// ==========================================
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #f4f6f4;
+    color: $text-dark;
+    line-height: 1.6;
+}
+
+// Header con Mixin
+.header {
+    @include flex-centro;
+    background-color: $primary-color;
+    color: $text-light;
+    padding: 50px 20px;
+    text-align: center;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+
+    h1 {
+        font-size: 2.8rem;
+        margin-bottom: 10px;
+        text-shadow: 1px 1px 2px rgba(0,0,0,0.2);
+    }
+}
+
+// ==========================================
+// 4. MAQUETACIÓN CON CSS GRID Y RESPONSIVE
+// ==========================================
+.main-container {
+    max-width: $container-width;
+    margin: 40px auto;
+    padding: 0 20px;
+    
+    // Aplicación de CSS Grid responsivo usando Mixin
+    display: grid;
+    grid-template-columns: 1fr; // Por defecto una sola columna (Móvil)
+    gap: 30px;
+
+    @include responder-en(escritorio) {
+        grid-template-columns: 1.2fr 0.8fr; // Dos columnas asimétricas en escritorio
+    }
+}
+
+// Sección izquierda: Catálogo de Secciones
+.info-panel {
+    background-color: white;
+    padding: 30px;
+    border-radius: $border-radius;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.04);
+
+    h2 {
+        margin-bottom: 25px;
+        color: $secondary-color;
+        border-bottom: 3px solid #f0fdf4;
+        padding-bottom: 10px;
+    }
+
+    // Grid anidado interno para las tarjetas del Market
+    .grid-steps {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 20px;
+
+        .step-card {
+            background-color: #f0fdf4;
+            padding: $card-padding;
+            border-radius: $border-radius;
+            border-left: 6px solid $primary-color;
+            transition: transform 0.2s ease;
+
+            &:hover {
+                transform: translateX(5px); // Pequeño efecto visual interactivo
+            }
+
+            span {
+                font-size: 1.8rem;
+                display: inline-block;
+                margin-bottom: 5px;
+            }
+
+            h3 {
+                margin: 5px 0;
+                color: $secondary-color;
+            }
+        }
+    }
+}
+
+// Sección derecha: Formulario de pedidos
+.form-panel {
+    background-color: white;
+    padding: 30px;
+    border-radius: $border-radius;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.04);
+
+    h2 {
+        margin-bottom: 25px;
+        color: $accent-color;
+        border-bottom: 3px solid #fff7ed;
+        padding-bottom: 10px;
+    }
+
+    .booking-form {
+        .form-group {
+            margin-bottom: 20px;
+
+            label {
+                display: block;
+                margin-bottom: 8px;
+                font-weight: 600;
+            }
+
+            input, select {
+                width: 100%;
+                padding: 12px;
+                border: 2px solid #e5e7eb;
+                border-radius: 8px;
+                font-size: 1rem;
+                outline: none;
+                transition: border-color 0.3s ease;
+
+                &:focus {
+                    border-color: $primary-color;
+                    box-shadow: 0 0 0 3px rgba(22, 163, 74, 0.15);
+                }
+            }
+        }
+
+        .btn-submit {
+            width: 100%;
+            background-color: $accent-color;
+            color: white;
+            padding: 15px;
+            border: none;
+            border-radius: 8px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background 0.3s ease;
+
+            &:hover {
+                background-color: dimgray; // Se oscurece al pasar el cursor
+                background: #c2410c;
+            }
+        }
+    }
+}
+
+// Footer
+.footer {
+    text-align: center;
+    padding: 30px 20px;
+    background-color: $background-dark;
+    color: #9ca3af;
+    margin-top: 60px;
+}
+// Sección del Banner de Productos (Ocupa todo el ancho del grid)
+.products-banner {
+    position: relative;
+    grid-column: 1 / -1; // Fuerza al elemento a expandirse en todo el ancho del Grid
+    border-radius: $border-radius;
+    overflow: hidden;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.06);
+
+    img {
+        width: 100%;
+        height: 250px;
+        object-fit: cover; // Evita que la imagen se distorsione al estirarse
+        display: block;
+
+        @include responder-en(escritorio) {
+            height: 350px; // Más alta en pantallas de escritorio
+        }
+    }
+
+    .banner-badge {
+        position: absolute;
+        bottom: 15px;
+        left: 15px;
+        background-color: $accent-color;
+        color: white;
+        padding: 8px 16px;
+        font-weight: bold;
+        border-radius: 20px;
+        font-size: 0.9rem;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+    }
+}
+// Encabezado con Logotipo Local y Alineación Responsiva
+.header {
+    position: relative;
+    background-image: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), 
+                      url('https://unsplash.com');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    color: $text-light;
+    padding: 60px 40px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+
+    @include responder-en(movil) {
+        padding: 40px 20px;
+    }
+
+    // Contenedor principal del encabezado
+    .header-container {
+        max-width: $container-width;
+        margin: 0 auto;
+        display: flex;
+        align-items: center;
+        gap: 25px; // Espacio entre el logo y los textos
+
+        @include responder-en(movil) {
+            flex-direction: column; // En celular, el logo se posiciona arriba del texto
+            text-align: center;
+            gap: 15px;
+        }
+    }
+
+    // Estilos para el Logotipo Responsivo
+    .header-logo {
+        img {
+            width: 100px; // Tamaño ideal para pantallas de escritorio
+            height: 100px;
+            border-radius: 50%; // Mantiene la forma circular del logo
+            border: 3px solid white; // Borde elegante para resaltar sobre el fondo oscuro
+            object-fit: cover;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+            transition: transform 0.3s ease;
+
+            &:hover {
+                transform: scale(1.05); // Efecto visual al pasar el mouse
+            }
+
+            @include responder-en(movil) {
+                width: 85px; // Tamaño adaptado para pantallas pequeñas
+                height: 85px;
+            }
+        }
+    }
+
+    // Estilos para los textos al lado del logo
+    .header-content {
+        text-align: left;
+
+        @include responder-en(movil) {
+            text-align: center;
+        }
+
+        h1 {
+            font-size: 3rem;
+            margin-bottom: 8px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.6);
+            
+            @include responder-en(movil) {
+                font-size: 2.2rem;
+            }
+        }
+
+        p {
+            font-size: 1.2rem;
+            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5);
+            font-weight: 300;
+            
+            @include responder-en(movil) {
+                font-size: 1rem;
+            }
+        }
+    }
+}
+

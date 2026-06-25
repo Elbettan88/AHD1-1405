@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mini Market El Barrio - Pedidos y Reservas</title>
+    <!-- Vinculación del CSS compilado por SASS -->
+    <link rel="stylesheet" href="css/estilos.css">
+</head>
+<body>
+
+    <header class="header">
+        
+            <!-- Logotipo Local -->
+            <div class="header-logo">
+                <img src="img/Captura de pantalla 2026-06-25 145707.jpg" alt="Logo Mini Market El Barrio">
+            </div>
+           <h1>Mini Market "El Barrio"</h1>
+        <p>Haz tu pedido en línea y recógelo sin hacer filas</p>
+        </div>
+
+
+
+
+    </header>
+
+    <main class="main-container">
+        
+        <!-- 1. Banner de Productos Disponibles (Abarca todo el ancho) -->
+        <section class="products-banner">
+            <img src="img/Fotografia-Real-Market-003.webp" alt="Productos Disponibles Mini Market El Barrio">
+            <div class="banner-badge">¡Surtido fresco todos los días!</div>
+        </section>
+
+        <!-- 2. Panel de Categorías / Catálogo (Uso de CSS Grid) -->
+        <section class="info-panel">
+            <h2>Nuestras Secciones</h2>
+            <div class="grid-steps">
+                <div class="step-card">
+                    <span>🛒</span>
+                    <h3>Abarrotes y Conservas</h3>
+                    <p>Arroz, azúcar, aceites y los productos básicos para tu hogar.</p>
+                </div>
+                <div class="step-card">
+                    <span>🥦</span>
+                    <h3>Frutas y Verduras</h3>
+                    <p>Productos frescos traídos directamente del campo cada mañana.</p>
+                </div>
+                <div class="step-card">
+                    <span>🥩</span>
+                    <h3>Carnes y Lácteos</h3>
+                    <p>Pollo, embutidos, quesos frescos y leche de la mejor calidad.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- 3. Formulario de Pedidos / Reservas -->
+        <section class="form-panel">
+            <h2>Realizar Pedido / Reserva</h2>
+            <form class="booking-form">
+                <div class="form-group">
+                    <label for="nombre">Nombre del Cliente:</label>
+                    <input type="text" id="nombre" required placeholder="Ej. Luis Betancourth">
+                </div>
+                <div class="form-group">
+                    <label for="categoria">Sección del Pedido:</label>
+                    <select id="categoria" required>
+                        <option value="">Seleccione una categoría...</option>
+                        <option value="abarrotes">Canasta de Abarrotes Básica</option>
+                        <option value="verduras">Combo de Frutas y Verduras</option>
+                        <option value="lacteos">Pack de Lácteos y Embutidos</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="fecha">Fecha de Recogida:</label>
+                    <input type="date" id="fecha" required>
+                </div>
+                <div class="form-group">
+                    <label for="hora">Hora de Recogida:</label>
+                    <input type="time" id="hora" required>
+                </div>
+                <button type="submit" class="btn-submit">Reservar Pedido</button>
+            </form>
+        </section>
+        
+    </main>
+
+    <footer class="footer">
+        <p>&copy; 2026 Mini Market El Barrio del Bettan. Tu tienda de confianza.</p>
+    </footer>
+
+</body>
+</html>
+
+
+
